@@ -3,8 +3,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
+  width: 100%;
   padding: 0 2em;
   background: #3e3a29;
   color: #fff;
@@ -33,24 +32,132 @@
   margin-right: 0.3em;
 }
 @media (max-width: 700px) {
-  .navbar-collapse {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    max-width: 100vw;
-    margin: 0;
-    background: #2d2922ee;
-    z-index: 4000 !important;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    border-radius: 0 0 1.2rem 1.2rem;
-    padding: 0.5rem 0 1rem 0;
-    transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
-    text-align: left;
-    overflow-y: auto;
+  /* Mobile: dropdown-style collapse under the navbar */
+  .navbar {
+    overflow: visible !important;
   }
+  .navbar-collapse {
+    display: none;
+    position: absolute;
+    bottom: 17px;
+    right: 5%;
+    width: 100%;
+    background: #2d2922;
+    color: #fff;
+    z-index: 1500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+    border-radius: 0 0 12px 12px;
+    padding: 0.5rem 0.6rem;
+    margin: 0;
+    overflow: hidden;
+    transition: max-height 0.32s cubic-bezier(.4,0,.2,1), opacity 0.2s;
+    max-height: 0;
+    opacity: 0;
+  }
+  .navbar-collapse.in {
+    display: block;
+    max-height: 80vh;
+    opacity: 1;
+  }
+
+  /* Strong overrides to prevent clipping and ensure visibility */
+  .navbar > *, .mobile-navbar > *, .mobile-nav-container > * {
+    z-index: 2 !important;
+  }
+  .navbar-collapse {
+    z-index: 9999 !important;
+  }
+  .navbar-collapse.collapse {
+    display: none !important;
+  }
+  .navbar-collapse.collapse.in {
+    display: block !important;
+    max-height: 80vh !important;
+    opacity: 1 !important;
+  }
+
+  .navbar-collapse .nav.navbar-nav.navbar-right {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    gap: 0.5rem;
+    padding: 0.6rem 0.2rem;
+    margin: 0;
+    width: 100%;
+    list-style: none;
+  }
+
+  .navbar-collapse .nav.navbar-nav.navbar-right li {
+    width: 100%;
+    text-align: left;
+    padding: 0.8rem 0.6rem;
+    font-size: 1.05rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .navbar-collapse .nav.navbar-nav.navbar-right li:last-child {
+    border-bottom: none;
+  }
+
+  .navbar-collapse .nav.navbar-nav.navbar-right a {
+    color: #fff !important;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    font-weight: 600;
+    padding: 0.2em 0.5em;
+    border-radius: 6px;
+    transition: background 0.18s, color 0.18s;
+  }
+  .navbar-collapse .nav.navbar-nav.navbar-right a:hover,
+  .navbar-collapse .nav.navbar-nav.navbar-right a:focus {
+    background: #b8ae7a;
+    color: #222 !important;
+  }
+
+  .navbar-collapse .navbar-btn {
+    background: #b8ae7a;
+    color: #222 !important;
+    border-radius: 2rem;
+    padding: 0.5em 0.9em;
+    font-weight: 700;
+    margin: 0.6rem auto;
+    text-transform: uppercase;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    font-size: 1.05rem;
+    display: inline-block;
+    min-width: 120px;
+    max-width: 220px;
+    width: auto;
+    transition: background 0.2s, color 0.2s;
+    text-align: center;
+  }
+  .navbar-collapse .navbar-btn:hover,
+  .navbar-collapse .navbar-btn:focus {
+    background: #e5d97c;
+    color: #111 !important;
+    text-decoration: none;
+  }
+
+  .navbar-collapse .close-mobile-menu {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 1.9rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1600;
+    padding: 0.2em 0.4em;
+    line-height: 1;
+    transition: color 0.18s;
+  }
+  .navbar-collapse .close-mobile-menu:hover {
+    color: #b8ae7a;
+  }
+
   .contact-strip-inner {
     flex-direction: row;
     gap: 0.2em;
@@ -154,8 +261,8 @@
 }
 /* Button style for Reservation and Catering */
 .navbar-btn {
-  background: #b8ae7a;
-  color: #222 !important;
+  background: #515c4c;
+  color: #fff !important;
   border-radius: 2rem;
   padding: 0.4em 1.2em;
   font-weight: 700;
@@ -168,8 +275,8 @@
   box-shadow: 0 2px 8px rgba(0,0,0,0.07);
 }
 .navbar-btn:hover, .navbar-btn:focus {
-  background: #e5d97c;
-  color: #111 !important;
+  background: #3f4a3f;
+  color: #fff !important;
   text-decoration: none;
 }
 /* Restore navbar background and image */
@@ -324,8 +431,7 @@
   }
 }
 .navbar-tabs,
-.navbar-tabs-desktop,
-.navbar-collapse {
+.navbar-tabs-desktop {
   z-index: 3001 !important;
   position: relative;
 }
@@ -350,12 +456,7 @@
     max-width: 98vw;
     margin-bottom: 0.5rem;
   }
-  .navbar-collapse {
-    display: block;
-    position: absolute;
-    max-width: 98vw;
-    margin-bottom: 0.5rem;
-  }
+  /* removed duplicate .navbar-collapse rule */
   .navbar-toggle {
     right: 20px;
   }
@@ -363,22 +464,7 @@
      margin-top: -23px;
     margin-right: 34px;
   }
-  .navbar-collapse {
-    background: #b8ae7a url('../assets/img/nav_bg_image.png') center/cover no-repeat;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #b8ae7a;
-    color: #222;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    z-index: 1500;
-    border-radius: 0 0 1.2rem 1.2rem;
-    padding: 0.5rem 0 1rem 0;
-    margin: 0;
-    transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
-    text-align: left;
-  }
+  /* removed duplicate .navbar-collapse rule */
   .navbar-collapse .nav.navbar-nav.navbar-right {
     align-items: flex-start;
     text-align: left;
@@ -477,26 +563,7 @@
   .navbar-tabs-desktop {
     display: none !important;
   }
-  .navbar-collapse {
-    display: block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #2d2922;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    z-index: 1500;
-    border-radius: 0 0 1.2rem 1.2rem;
-    padding: 0.5rem 0 1rem 0;
-    margin: 0;
-    transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
-  }
-  .navbar-collapse.collapse {
-    display: none;
-  }
-  .navbar-collapse.collapse.in {
-    display: block;
-  }
+  /* removed duplicate .navbar-collapse rules */
   .nav.navbar-nav.navbar-right {
     display: flex;
     flex-direction: column;
@@ -791,9 +858,5 @@
     justify-content: center;
   }
 
-  .navbar-collapse {
-    top: 100%;
-    left: 0;
-    width: 100%;
-  }
+  /* removed duplicate .navbar-collapse rule */
 }

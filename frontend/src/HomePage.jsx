@@ -1,5 +1,5 @@
 import TopNavbar from "./TopNavbar";    
-import VideoHeader from "./VideoHeader";
+import HomeImageGallery from "./HomeImageGallery";
 import MenuTabs from "./MenuTabs";
 import FoodGallery from "./FoodGallery";
 import "./HomePage.css";
@@ -24,8 +24,8 @@ function HomePage() {
       </div>
 
       <main style={layout.content}>
-        {/* Video Hero */}
-        <VideoHeader />
+        {/* Image Gallery instead of Video */}
+        <HomeImageGallery />
 
 
         {/* Menu */}
