@@ -1,3 +1,440 @@
+/* Contact strip above navbar */
+.contact-strip-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 2em;
+  background: #3e3a29;
+  color: #fff;
+  font-size: 12px;
+  font-family: var(--font-default, 'Lato', sans-serif);
+  letter-spacing: 0.01em;
+  height: 36px;
+  border-radius: 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.contact-link {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 0.7em;
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.contact-link:hover {
+  color: #b8ae7a;
+  text-decoration: underline;
+}
+.contact-link i {
+  margin-right: 0.3em;
+}
+@media (max-width: 700px) {
+  /* Mobile: dropdown-style collapse under the navbar */
+  .navbar {
+    overflow: visible !important;
+  }
+  .navbar-collapse {
+    display: none;
+    position: absolute;
+    bottom: 17px;
+    right: 5%;
+    width: 100%;
+    background: #2d2922;
+    color: #fff;
+    z-index: 1500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.28);
+    border-radius: 0 0 12px 12px;
+    padding: 0.5rem 0.6rem;
+    margin: 0;
+    overflow: hidden;
+    transition: max-height 0.32s cubic-bezier(.4,0,.2,1), opacity 0.2s;
+    max-height: 0;
+    opacity: 0;
+  }
+  .navbar-collapse.in {
+    display: block;
+    max-height: 80vh;
+    opacity: 1;
+  }
+
+  /* Strong overrides to prevent clipping and ensure visibility */
+  .navbar > *, .mobile-navbar > *, .mobile-nav-container > * {
+    z-index: 2 !important;
+  }
+  .navbar-collapse {
+    z-index: 9999 !important;
+  }
+  .navbar-collapse.collapse {
+    display: none !important;
+  }
+  .navbar-collapse.collapse.in {
+    display: block !important;
+    max-height: 80vh !important;
+    opacity: 1 !important;
+  }
+
+  .navbar-collapse .nav.navbar-nav.navbar-right {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: left;
+    gap: 0.5rem;
+    padding: 0.6rem 0.2rem;
+    margin: 0;
+    width: 100%;
+    list-style: none;
+  }
+
+  .navbar-collapse .nav.navbar-nav.navbar-right li {
+    width: 100%;
+    text-align: left;
+    padding: 0.8rem 0.6rem;
+    font-size: 1.05rem;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .navbar-collapse .nav.navbar-nav.navbar-right li:last-child {
+    border-bottom: none;
+  }
+
+  .navbar-collapse .nav.navbar-nav.navbar-right a {
+    color: #fff !important;
+    text-decoration: none;
+    width: 100%;
+    display: block;
+    font-weight: 600;
+    padding: 0.2em 0.5em;
+    border-radius: 6px;
+    transition: background 0.18s, color 0.18s;
+  }
+  .navbar-collapse .nav.navbar-nav.navbar-right a:hover,
+  .navbar-collapse .nav.navbar-nav.navbar-right a:focus {
+    background: #b8ae7a;
+    color: #222 !important;
+  }
+
+  .navbar-collapse .navbar-btn {
+    background: #b8ae7a;
+    color: #222 !important;
+    border-radius: 2rem;
+    padding: 0.5em 0.9em;
+    font-weight: 700;
+    margin: 0.6rem auto;
+    text-transform: uppercase;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    font-size: 1.05rem;
+    display: inline-block;
+    min-width: 120px;
+    max-width: 220px;
+    width: auto;
+    transition: background 0.2s, color 0.2s;
+    text-align: center;
+  }
+  .navbar-collapse .navbar-btn:hover,
+  .navbar-collapse .navbar-btn:focus {
+    background: #e5d97c;
+    color: #111 !important;
+    text-decoration: none;
+  }
+
+  .navbar-collapse .close-mobile-menu {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 1.9rem;
+    color: #fff;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 1600;
+    padding: 0.2em 0.4em;
+    line-height: 1;
+    transition: color 0.18s;
+  }
+  .navbar-collapse .close-mobile-menu:hover {
+    color: #b8ae7a;
+  }
+
+  .contact-strip-inner {
+    flex-direction: row;
+    gap: 0.2em;
+    font-size: 12px;
+    padding: 0.3em 0.5em;
+  }
+  .contact-link {
+    margin: 0.2em 0;
+  }
+}
+/* --- Mobile Navbar Layout --- */
+.mobile-nav-container {
+  display: none;
+}
+.mobile-navbar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 0.7rem;
+  background: var(--navbar-bg) url('../assets/img/nav_bg_image.png') center/cover no-repeat;
+  position: sticky;
+  top: -12px;
+  z-index: 1000;
+}
+.mobile-nav-toggle {
+  background: none;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 38px;
+  height: 48px;
+  cursor: pointer;
+  margin-right: 0.5rem;
+}
+.mobile-nav-toggle .icon-bar {
+  width: 28px;
+  height: 4px;
+  background: #b8ae7a;
+  margin: 3px 0;
+  border-radius: 2px;
+}
+.mobile-logo {
+  flex: 1 1 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.mobile-logo-img {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+@media (max-width: 700px) {
+  .mobile-logo-img {
+    height: 70px;
+    width: auto;
+  }
+}
+.mobile-nav-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.mobile-menu-btn {
+  background-color: #b8ae7a;
+  color: #222 !important;
+  border-radius: 7px;
+  padding: 4px 18px;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 1.5rem;
+  text-decoration: none;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.mobile-menu-btn:hover, .mobile-menu-btn:focus {
+  background: #a89e6a;
+  color: #111 !important;
+}
+
+@media (max-width: 700px) {
+  .desktop-navbar {
+    display: none !important;
+  }
+  .mobile-nav-container {
+    display: block;
+  }
+}
+@media (min-width: 701px) {
+  .mobile-nav-container {
+    display: none !important;
+  }
+}
+/* Button style for Reservation and Catering */
+.navbar-btn {
+  background: #515c4c;
+  color: #fff !important;
+  border-radius: 2rem;
+  padding: 0.4em 1.2em;
+  font-weight: 700;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  text-transform: uppercase;
+  border: none;
+  transition: background 0.2s, color 0.2s;
+  display: inline-block;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+}
+.navbar-btn:hover, .navbar-btn:focus {
+  background: #3f4a3f;
+  color: #fff !important;
+  text-decoration: none;
+}
+/* Restore navbar background and image */
+.navbar {
+  background: var(--navbar-bg) url('../assets/img/nav_bg_image.png') center/cover no-repeat;
+  color: var(--navbar-link);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+  padding: 0;
+  /* Overlay handled by ::before and ::after */
+  overflow: hidden;
+}
+
+.navbar::before,
+.mobile-navbar::before,
+.mobile-nav-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: inherit;
+  filter: blur(10px);
+  z-index: 0;
+}
+.navbar::after,
+.mobile-navbar::after,
+.mobile-nav-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(30, 30, 30, 0.45); /* semi-transparent dark overlay */
+  z-index: 1;
+}
+.navbar > *,
+.mobile-navbar > *,
+.mobile-nav-container > * {
+  position: relative;
+  z-index: 2;
+}
+
+.mobile-navbar {
+  position: relative;
+}
+.mobile-nav-container {
+  position: relative;
+  overflow: hidden;
+}
+.navbar-toggle {
+  display: none !important;
+}
+
+@media (max-width: 700px) {
+  .navbar-toggle {
+    display: flex !important;
+  }
+}
+.navbar-header-row {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  position: relative;
+  background: transparent;
+}
+
+.navbar-header-row .navbar-logo {
+  width: 30%;
+  min-width: 120px;
+  max-width: 240px;
+  flex: 0 0 30%;
+}
+
+.navbar-header-row .navbar-toggle {
+  /* remains unchanged, right-aligned */
+}
+
+.navbar-tabs.navbar-tabs-desktop {
+  width: 70%;
+  flex: 1 1 70%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+@media (max-width: 900px) {
+  .navbar-header-row .navbar-logo {
+    width: 38%;
+    min-width: 90px;
+    max-width: 180px;
+    flex-basis: 38%;
+  }
+  .navbar-tabs.navbar-tabs-desktop {
+    width: 62%;
+    flex-basis: 62%;
+  }
+}
+
+@media (max-width: 700px) {
+  .navbar-header-row {
+    flex-direction: row;
+    padding: 0.35rem 0.9rem;
+  }
+  .navbar-header-row .navbar-logo,
+  .navbar-tabs.navbar-tabs-desktop {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    flex-basis: 100%;
+  }
+  .navbar-tabs.navbar-tabs-desktop {
+    display: none !important;
+  }
+}
+
+
+.navbar-header-row .navbar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 1 1 auto;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-header-row .navbar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex: 0 0 auto;
+  position: static;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .navbar-header-row {
+    padding: 0.35rem 0.9rem;
+  }
+  .navbar-header-row .navbar-logo img {
+    height: 64px;
+    max-height: 64px;
+  }
+}
+.navbar-tabs,
+.navbar-tabs-desktop {
+  z-index: 3001 !important;
+  position: relative;
+}
 /* Hamburger icon label */
 .navbar-toggle-label {
   color: #b8ae7a !important;
@@ -19,12 +456,7 @@
     max-width: 98vw;
     margin-bottom: 0.5rem;
   }
-  .navbar-collapse {
-    display: block;
-    position: absolute;
-    max-width: 98vw;
-    margin-bottom: 0.5rem;
-  }
+  /* removed duplicate .navbar-collapse rule */
   .navbar-toggle {
     right: 20px;
   }
@@ -32,22 +464,7 @@
      margin-top: -23px;
     margin-right: 34px;
   }
-  .navbar-collapse {
-    background: #b8ae7a url('../assets/img/nav_bg_image.png') center/cover no-repeat;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #b8ae7a;
-    color: #222;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    z-index: 1500;
-    border-radius: 0 0 1.2rem 1.2rem;
-    padding: 0.5rem 0 1rem 0;
-    margin: 0;
-    transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
-    text-align: left;
-  }
+  /* removed duplicate .navbar-collapse rule */
   .navbar-collapse .nav.navbar-nav.navbar-right {
     align-items: flex-start;
     text-align: left;
@@ -146,26 +563,7 @@
   .navbar-tabs-desktop {
     display: none !important;
   }
-  .navbar-collapse {
-    display: block;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    background: #2d2922;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
-    z-index: 1500;
-    border-radius: 0 0 1.2rem 1.2rem;
-    padding: 0.5rem 0 1rem 0;
-    margin: 0;
-    transition: max-height 0.3s cubic-bezier(.4,0,.2,1);
-  }
-  .navbar-collapse.collapse {
-    display: none;
-  }
-  .navbar-collapse.collapse.in {
-    display: block;
-  }
+  /* removed duplicate .navbar-collapse rules */
   .nav.navbar-nav.navbar-right {
     display: flex;
     flex-direction: column;
@@ -235,24 +633,12 @@
   width: 80%;
   max-width: 600px;
   margin: 0 auto;
-  background: #292626;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-bottom: 0.5rem;
-  border-top: 4px solid var(--navbar-border);
 }
 
-/* Navbar Layout */
-.navbar {
-  background: var(--navbar-bg) url('../assets/img/nav_bg_image.png') center/cover no-repeat;
-  color: var(--navbar-link);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  width: 100%;
-  padding: 0;
-}
 
 .logo-center {
   display: flex;
@@ -305,7 +691,6 @@
   width: 80%;
   max-width: 1200px;
   margin: 0 auto;
-  background: #292626;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -425,4 +810,53 @@
     width: 100%;
     text-align: center;
   }
+}
+
+/* Quick alignment fix: logo left, toggle right */
+.navbar-header-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.navbar-header-row .navbar-logo {
+  width: auto;
+  padding: 0;
+  margin: 0;
+  align-items: flex-start;
+}
+
+.navbar-header-row .navbar-logo img {
+  width: auto;
+  height: 80px;
+  max-height: 80px;
+  margin: 0;
+}
+
+.navbar-header-row .navbar-toggle {
+  position: static;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .navbar-header-row {
+    padding: 0.35rem 0.9rem;
+  }
+
+  .navbar-header-row .navbar-logo img {
+    height: 64px;
+    max-height: 64px;
+  }
+
+  .navbar-header-row .navbar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* removed duplicate .navbar-collapse rule */
 }
