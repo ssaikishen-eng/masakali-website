@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import './HeroSection.css';
 
-// Dynamically import all images from ../assets/images using Vite's glob
-const images = import.meta.glob('../assets/images/*.{png,jpg,jpeg,svg}', { eager: true, as: 'url' });
+// Dynamically import all images from ../assets/images using Vite's glob (include webp)
+const images = import.meta.glob('../assets/images/*.{png,jpg,jpeg,svg,webp}', { eager: true, as: 'url' });
 const imageList = Object.values(images);
 
 const SLIDE_INTERVAL = 5000;
