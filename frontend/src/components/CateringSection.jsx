@@ -1,13 +1,9 @@
-        <button className="catering-btn" onClick={() => navigate('/catering')}>
-          <span>Catering Inquiry</span>
-        </button>
-
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import './CateringSection.css';
 import './sectionImages.css';
 import CateringForm from './CateringForm';
-import { cateringImage } from '../assets/img/externalImages';
+import cateringImage from '../assets/img/catering.webp';
 
 const CateringSection = () => {
   const navigate = useNavigate();

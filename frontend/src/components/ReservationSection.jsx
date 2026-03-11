@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './ReservationSection.css';
 import './sectionImages.css';
 import ReservationForm from './ReservationForm';
-import { reservationImage } from '../assets/img/externalImages';
+import reservationImage from '../assets/img/restaurent.webp';
 
 const ReservationSection = () => {
   const navigate = useNavigate();
