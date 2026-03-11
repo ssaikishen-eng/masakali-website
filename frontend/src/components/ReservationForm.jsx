@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './ReservationForm.css';
 
 
@@ -21,20 +22,55 @@ const ReservationForm = () => {
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    // Here you would send the form data to your backend or email service
+    setError('');
+    setSubmitting(true);
+
+    const payload = {
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      date: form.date,
+      time: form.time,
+      partySize: Number(form.guests),
+      notes: form.message,
+    };
+
+    try {
+      const apiBase = import.meta.env.DEV ? 'http://localhost:4000' : 'https://masakali-website.vercel.app';
+      axios.post(`${apiBase}/api/reservation`, payload)
+        .then((x) => {
+          console.log('this is the res', x);
+          setSubmitted(true);
+        })
+        .catch((err) => {
+          console.error(err);
+          const msg = (err.response && err.response.data && err.response.data.error) || err.message || 'Submission failed';
+          setError(msg);
+        })
+        .finally(() => setSubmitting(false));
+    } catch (err) {
+      setError(err.message || 'Submission failed');
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
-    return <div className="reservation-success">Thank you! Your reservation request has been received.</div>;
+    return (
+      <div className="reservation-success">
+        <h3>Thank you! Your reservation request has been received.</h3>
+        <p>We sent a confirmation to {form.email}. If you have any questions, please call 408-857-6274.</p>
+      </div>
+    );
   }
 
   return (

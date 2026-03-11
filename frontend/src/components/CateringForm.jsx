@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './CateringForm.css';
 
 const CateringForm = () => {
@@ -8,23 +9,56 @@ const CateringForm = () => {
     phone: '',
     eventDate: '',
     guests: '',
+    eventType: '',
     message: ''
   });
   const [submitted, setSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setSubmitted(true);
-    // Here you would send the form data to your backend or email service
+    setError('');
+    setSubmitting(true);
+
+    const payload = {
+      name: form.name,
+      email: form.email,
+      phone: form.phone,
+      eventDate: form.eventDate,
+      eventType: form.eventType,
+      guests: Number(form.guests),
+      notes: form.message,
+    };
+
+    try {
+      const apiBase = import.meta.env.DEV ? 'http://localhost:4000' : 'https://masakali-website.vercel.app';
+      await axios.post(`${apiBase}/api/catering`, payload)
+        .then(() => setSubmitted(true))
+        .catch((err) => {
+          console.error(err);
+          const msg = (err.response && err.response.data && err.response.data.error) || err.message || 'Submission failed';
+          setError(msg);
+        })
+        .finally(() => setSubmitting(false));
+    } catch (err) {
+      setError(err.message || 'Submission failed');
+      setSubmitting(false);
+    }
   };
 
   if (submitted) {
-    return <div className="reservation-success">Thank you! Your catering inquiry has been received.</div>;
+    return (
+      <div className="reservation-success">
+        <h3>Thank you! Your catering inquiry has been received.</h3>
+        <p>We sent a confirmation to {form.email}. If you have any questions, please call 408-857-6274.</p>
+      </div>
+    );
   }
 
   return (
@@ -62,12 +96,17 @@ const CateringForm = () => {
             <label className="input-label" htmlFor="catering-guests">Number of Guests</label>
             <input className="text-input-field" type="number" name="guests" id="catering-guests" min="1" max="200" value={form.guests} onChange={handleChange} required />
           </div>
+          <div className="form-input-group">
+            <label className="input-label" htmlFor="event-type">Event Type</label>
+            <input className="text-input-field" type="text" name="eventType" id="event-type" value={form.eventType} onChange={handleChange} placeholder="e.g., Wedding, Corporate" />
+          </div>
         </div>
         <div className="form-input-group">
           <label className="input-label" htmlFor="catering-message">Details / Requests</label>
           <textarea className="textarea-field" name="message" id="catering-message" value={form.message} onChange={handleChange} />
         </div>
-        <button type="submit" className="reservation-submit-btn"><span>Send Inquiry</span></button>
+        {error && <div className="form-error">{error}</div>}
+        <button type="submit" className="reservation-submit-btn" disabled={submitting}><span>{submitting ? 'Sending…' : 'Send Inquiry'}</span></button>
       </form>
     </div>
   );
